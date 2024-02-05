@@ -1,11 +1,9 @@
 ﻿using iac_techchallenge05.resources;
 using Pulumi;
 
-return await Deployment.RunAsync(async () =>
+return await Deployment.RunAsync(() =>
 {
-    var resourceGroup = new ResourceGroup();
-    var rg = await resourceGroup.CreateResourceGroup();
+    var resourceGroup = new ResourceGroupStack();
 
-    var aks = new AKS();
-    await aks.CreateAks(rg);
+    var azureKubernetesService = new AksStack(resourceGroup.ResourceGroupObj);
 });
