@@ -15,12 +15,15 @@ public class AksStack
             ResourceGroupName = createdResourceGroup.Name,
             Location = config.Require("location"),
             Name = config.Require("aksName"),
-
+            
             DefaultNodePool = new Pulumi.Azure.ContainerService.Inputs.KubernetesClusterDefaultNodePoolArgs()
             {
                 Name = config.Require("defaultNodePoolName"),
                 VmSize = config.Require("vmSize"),
-                NodeCount = config.RequireInt32("nodeCount")
+                NodeCount = config.RequireInt32("nodeCount"),
+                EnableAutoScaling = true,
+                MinCount = 1,
+                MaxCount = 2
             },
 
             SkuTier = config.Require("skuTier"),
@@ -49,5 +52,6 @@ public class AksStack
         });
 
         var rabbitMQ = new RabbitMQ(aks, k8sProvider);
+        var postgresDB = new PostgresDB(aks, k8sProvider);
     }
 }
