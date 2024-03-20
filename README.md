@@ -2,8 +2,15 @@
 
 ## Visão Geral
 Este projeto é uma aplicação .NET 8 que consiste em uma API (que funciona como um Producer tambem), e um Worker (Consumer). O guia a seguir fornece instruções detalhadas para configurar e implantar o projeto em um ambiente Azure.
+Todos os recursos foram "deployados" por Iac utilizando o Pulumi, vale lembrar que o banco de dados roda dentro do cluster AKS, com um Helm Chart.
 
-## Requisitos
+## Recursos
+Os seguintes recursos foram utilizados:
+- Banco de dados PostgreSql
+- Azure Kubernetes Service (AKS)
+- Azure Container Registry (ACR)
+- Azure Service Bus
+
 Antes de começar, certifique-se de ter o seguinte:
 - Conta no Azure com as permissões necessárias.
 - .NET 8 SDK instalado localmente.
@@ -60,12 +67,13 @@ pulumi up
 - Basta navegar ate a pasta onde estao os arquivos yaml e rodar os comandos, ex:
 
 ```
+az aks get-credentials --resource-group rgName --name aksName --overwrite-existing
+
 kubectl apply -f .\deploy-api.yaml
 
 kubectl apply -f .\svc-lb-api.yaml
 
 kubectl apply -f .\deploy-consumer.yaml
-
 ```
 
 ### Conclusão
