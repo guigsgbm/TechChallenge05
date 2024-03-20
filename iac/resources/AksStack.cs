@@ -6,7 +6,7 @@ namespace iac_techchallenge05.resources;
 
 public class AksStack
 {
-    public AksStack(Pulumi.Azure.Core.ResourceGroup createdResourceGroup)
+    public AksStack(Pulumi.Azure.Core.ResourceGroup createdResourceGroup, Registry createdAcr)
     {
         var config = new Config();
 
@@ -39,7 +39,7 @@ public class AksStack
 
         new CustomResourceOptions()
         {
-            DependsOn = { createdResourceGroup },
+            DependsOn = new Resource[] { createdResourceGroup, createdAcr },
             IgnoreChanges = { "defaultNodePool.nodeCount" } 
         });
 
@@ -51,7 +51,19 @@ public class AksStack
             DependsOn = { aks }
         });
 
-        var rabbitMQ = new RabbitMQ(aks, k8sProvider);
+        var acrAssignment = new Pulumi.Azure.Authorization.Assignment("acrAssignment", new()
+        {
+            PrincipalId = aks.KubeletIdentity.Apply(kubeletIdentity => kubeletIdentity.ObjectId),
+            RoleDefinitionName = "AcrPull",
+            Scope = createdAcr.Id,
+            SkipServicePrincipalAadCheck = true,
+        },new CustomResourceOptions()
+        {
+            DependsOn = new Resource[] { aks, createdAcr }
+        });
+
+        //var rabbitMQ = new RabbitMQ(aks, k8sProvider);
         var postgresDB = new PostgresDB(aks, k8sProvider);
+        var wordpress = new Wordpress(aks, k8sProvider);
     }
 }

@@ -37,7 +37,7 @@ public class RabbitMQ
             DependsOn = { aks }
         });
 
-        var lbRabbitMqSvc = new Pulumi.Kubernetes.Core.V1.Service("lb-rabbitmq", new ServiceArgs
+        var lb_RabbitMqSvc = new Pulumi.Kubernetes.Core.V1.Service("lb-rabbitmq", new ServiceArgs
         {
             Metadata = new ObjectMetaArgs
             {

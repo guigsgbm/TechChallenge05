@@ -6,16 +6,24 @@ config:
   iac-techchallenge05:identityType: SystemAssigned
   iac-techchallenge05:kubernetesVersion: 1.27.7
   iac-techchallenge05:location: eastus2
-  iac-techchallenge05:nodeCount: 1
+  iac-techchallenge05:nodeCount: "1"
+  iac-techchallenge05:postgreDatabase: db-techchallenge05
+  iac-techchallenge05:postgrePassword:
+    secure: AAABAEsraAOOoK0cpagZsr+mRAlaRYDxCHnRISm/PGjz3WuosBa6qw==
+  iac-techchallenge05:postgreUsername: db_usr
+  iac-techchallenge05:postgresAdminPassword:
+    secure: AAABABaW/58xDEQTj5z+80oauSkmCc5IrWyJcH/wItzgBLA9e9/36g==
+  iac-techchallenge05:rabbitPassword:
+    secure: AAABADggBugSTm4EHK/OIU43vmv66t+lf56XV1J4xkENFQSqRxfhgZeFsg==
+  iac-techchallenge05:rabbitUsername: admin
   iac-techchallenge05:resourceGroupName: techchallenge05
   iac-techchallenge05:skuTier: Free
   iac-techchallenge05:vmSize: standard_b2s
-  iac-techchallenge05:postgreDatabase: db-techchallenge05
-  iac-techchallenge05:postgrePassword:
-    secure: AAABAPKKCrTZBHZFYsnNY/iFtJKvMs962WJQxqSjG2RTXOfpv5E7bw==
-  iac-techchallenge05:postgreUsername: admin
-  iac-techchallenge05:postgresAdminPassword:
-    secure: AAABAOcwgVqjFfAqCNi6072vPBD8zmG2GXFRi6qK97XO+chxF548+A==
-  iac-techchallenge05:rabbitPassword:
-    secure: AAABAPAGBE5Z8mQlYlrembEFANnpt/7z3qjoivBT3a+LbZU10A==
-  iac-techchallenge05:rabbitUsername: admin
+  iac-techchallenge05:wordpressPassword:
+    secure: AAABAJFx21x0RxPWYWpch7wW8nLlPXU2mlI1+ZD4cSTV6QU2zPrc++dA7fOmnA==
+  iac-techchallenge05:wordpressUsername: admin
+  iac-techchallenge05:sbNamespaceName: techchallenge05-sb-namespace
+  iac-techchallenge05:sbQueueName: items
+  iac-techchallenge05:sbSku: Standard
+  iac-techchallenge05:acrName: acrtechchallenge05
+  iac-techchallenge05:acrSku: Basic
